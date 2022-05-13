@@ -1,5 +1,9 @@
 # Chest-XRay-Detection
 
+# Kaggle Dataset
+
+ - pip install kaggle
+
 In order to get the pneumonia dataset, you need to authenticate your account with Kaggle's public API.
  - From the website, click on your user profile and select "My account"
  - Scroll to the page labeled API and select "Create New API Token"
