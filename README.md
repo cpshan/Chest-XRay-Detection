@@ -10,7 +10,6 @@ In order to get the pneumonia dataset, you need to authenticate your account wit
  - Find the path to your /.kaggle directory, and put the new kaggle.json file in there
     (for me it was C:/Users/cpshan/.kaggle/)
 
-Once you're authenticated, call:
- - kaggle datasets download -d paultimothymooney/chest-xray-pneumonia
- - unzip this once it's done downloading
- - MAKE SURE THE UNZIPPED FOLDER IS NAMED chest-xray-pneumonia
+Once you're authenticated:
+ - Run "kaggle datasets download -d paultimothymooney/chest-xray-pneumonia" in this projects directory
+ - unzip this once it's done downloading (MAKE SURE THE UNZIPPED FOLDER IS NAMED "chest-xray-pneumonia")
