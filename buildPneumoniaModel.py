@@ -9,7 +9,7 @@ from keras.models import Sequential
 from pathlib import Path
 import os
 
-data_dir = Path('./chest-xray-pneumonia/chest_xray/chest_xray')
+data_dir = Path('./chest-xray-pneumonia/chest_xray')
 
 train_dir = data_dir / 'train'
 val_dir = data_dir / 'val'
@@ -31,7 +31,7 @@ train_ds = tf.keras.utils.image_dataset_from_directory(
 class_names = train_ds.class_names
 
 val_ds = tf.keras.utils.image_dataset_from_directory(
-    val_dir,
+    train_dir,
     validation_split = 0.2,
     subset = "validation",
     seed = 123,
@@ -65,7 +65,7 @@ model.compile(
     metrics=['accuracy']
     )
 
-epochs = 6
+epochs = 12
 history = model.fit(
     train_ds,
     validation_data=val_ds,

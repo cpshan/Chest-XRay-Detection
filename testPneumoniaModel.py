@@ -32,33 +32,42 @@ class_names = train_ds.class_names
 
 model = tf.keras.models.load_model('pneumoniaModel')
 
-normal_test = Path('./chest-xray-pneumonia/chest_xray/chest_xray/test/NORMAL/IM-0001-0001.jpeg')
-virus_test = Path('./chest-xray-pneumonia/chest_xray/chest_xray/test/PNEUMONIA/person1_virus_6.jpeg')
+normal_files = os.listdir(test_dir / "NORMAL")
 
-img = tf.keras.utils.load_img(
-    normal_test, target_size = (image_height, image_width)
-)
-img_array = tf.keras.utils.img_to_array(img)
-img_array = tf.expand_dims(img_array, 0)
+total = 0
+correct = 0
+print("Testing {:d} normal files".format(len(normal_files)))
+for file in normal_files:
+    total = total + 1
+    img = tf.keras.utils.load_img(
+        test_dir / "NORMAL" / file, target_size = (image_height, image_width)
+    )
+    img_array = tf.keras.utils.img_to_array(img)
+    img_array = tf.expand_dims(img_array, 0)
 
-predictions = model.predict(img_array)
-score = tf.nn.softmax(predictions[0])
+    predictions = model.predict(img_array)
+    score = tf.nn.softmax(predictions[0])
+    if (class_names[np.argmax(score)] == "NORMAL"):
+        correct = correct + 1
 
-print(
-    "This image most likely belongs to {} with a {:.2f} percent confidence."
-    .format(class_names[np.argmax(score)], 100 * np.max(score))
-)
+print("A total of {:d} out of {:d} normal files correct ({:.2f} accuracy)".format(correct, total, correct / total))
 
-img = tf.keras.utils.load_img(
-    virus_test, target_size = (image_height, image_width)
-)
-img_array = tf.keras.utils.img_to_array(img)
-img_array = tf.expand_dims(img_array, 0)
+virus_files = os.listdir(test_dir / "PNEUMONIA")
 
-predictions = model.predict(img_array)
-score = tf.nn.softmax(predictions[0])
+total = 0
+correct = 0
+print("Testing {:d} pneumonia files".format(len(virus_files)))
+for file in virus_files:
+    total = total + 1
+    img = tf.keras.utils.load_img(
+        test_dir / "PNEUMONIA" / file, target_size = (image_height, image_width)
+    )
+    img_array = tf.keras.utils.img_to_array(img)
+    img_array = tf.expand_dims(img_array, 0)
 
-print(
-    "This image most likely belongs to {} with a {:.2f} percent confidence."
-    .format(class_names[np.argmax(score)], 100 * np.max(score))
-)
+    predictions = model.predict(img_array)
+    score = tf.nn.softmax(predictions[0])
+    if (class_names[np.argmax(score)] == "PNEUMONIA"):
+        correct = correct + 1
+
+print("A total of {:d} out of {:d} pneumonia files correct ({:.2f} accuracy)".format(correct, total, correct / total))
