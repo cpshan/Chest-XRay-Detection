@@ -54,11 +54,11 @@ print("A total of {:d} out of {:d} normal files correct ({:.2f} accuracy)".forma
 
 virus_files = os.listdir(test_dir / "PNEUMONIA")
 
-total = 0
-correct = 0
+sick_total = 0
+sick_correct = 0
 print("Testing {:d} pneumonia files".format(len(virus_files)))
 for file in virus_files:
-    total = total + 1
+    sick_total = sick_total + 1
     img = tf.keras.utils.load_img(
         test_dir / "PNEUMONIA" / file, target_size = (image_height, image_width)
     )
@@ -68,6 +68,8 @@ for file in virus_files:
     predictions = model.predict(img_array)
     score = tf.nn.softmax(predictions[0])
     if (class_names[np.argmax(score)] == "PNEUMONIA"):
-        correct = correct + 1
+        sick_correct = sick_correct + 1
 
-print("A total of {:d} out of {:d} pneumonia files correct ({:.2f} accuracy)".format(correct, total, correct / total))
+print("A total of {:d} out of {:d} pneumonia files correct ({:.2f} accuracy)".format(sick_correct, sick_total, sick_correct / sick_total))
+
+print("Total score {:.2f}".format((sick_correct + correct) / (sick_total + total)))
