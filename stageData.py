@@ -10,6 +10,8 @@ def stageImages(dirName, diseaseType):
     dataEntry = open("archive/Data_Entry_2017.csv", 'r')
     lines = dataEntry.readlines()
 
+    os.mkdir("nih_staged")
+    os.mkdir("nih_staged/pneumonia")
     # Traverse CSV file
     for i in range(1, len(lines)): #skip first line (column labels)
         line = lines[i].strip().split(",") #delimiter may need to be changed
