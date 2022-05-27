@@ -1,7 +1,7 @@
 import os
-from posixpath import dirname
 import sys
 import shutil
+from pathlib import Path
 
 def makeDirectories():
     try:
@@ -25,7 +25,8 @@ def makeDirectories():
         print("neither/ directory already created")
 
 def stageImages(dirName, imageNum):
-    starts = [0, 5001, 15001, 25001, 35001, 45001, 55001, 65001, 75001, 85001, 95001, 105001, 112121]
+    #Goes to 112121, but are saving the last few hundred for testing
+    starts = [0, 5001, 15001, 25001, 35001, 45001, 55001, 65001, 75001, 85001, 95001, 105001, 111001]
 
     dataEntry = open("archive/Data_Entry_2017.csv", 'r')
     lines = dataEntry.readlines()
@@ -61,15 +62,20 @@ def stageImages(dirName, imageNum):
                 continue
     return (pcount, acount)
 
+def addMorePneumonia():
+    print("coming soon")
+        
+
 def main():
     makeDirectories()
     pcount = 0
     acount = 0
-    for i in range(1, 13, 1):
-        (pCurr, aCurr) = stageImages("archive/images_00"+str(i), i)
+    for i in range(12, 13, 1):
+        (pCurr, aCurr) = stageImages("archive/images_0{:2d}".format(i), i)
         acount += aCurr
         pcount += pCurr
-    print("There were a total of {:d} pneumonia files and {:d} atelectasis files")
+    print("There were a total of {:d} pneumonia files and {:d} atelectasis files".format(pcount, acount))
+    addMorePneumonia()
 
 if __name__ == "__main__":
     main()
