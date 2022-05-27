@@ -70,7 +70,7 @@ def main():
     makeDirectories()
     pcount = 0
     acount = 0
-    for i in range(12, 13, 1):
+    for i in range(1, 13, 1):
         (pCurr, aCurr) = stageImages("archive/images_0{:2d}".format(i), i)
         acount += aCurr
         pcount += pCurr
