@@ -1,0 +1,30 @@
+About to go through roughly 112,000 lines
+going through 5001 lines (0 - 5001)
+going through 10000 lines (5001 - 15001)
+going through 10000 lines (15001 - 25001)
+going through 10000 lines (25001 - 35001)
+going through 10000 lines (35001 - 45001)
+going through 10000 lines (45001 - 55001)
+going through 10000 lines (55001 - 65001)
+going through 10000 lines (65001 - 75001)
+going through 10000 lines (75001 - 85001)
+going through 10000 lines (85001 - 95001)
+going through 10000 lines (95001 - 105001)
+going through 4406 lines (105001 - 109407)
+After 15.80 minutes, there are a total of 1406 pneumonia files and 11000 atelectasis files
+Adding more pneumonia files
+After 0.64 minutes, there are now a total of 5281 pnuemonia files and 11000 atelectasis files
+Augmenting data
+Augmenting pneumonia
+0 / 5281
+1000 / 5281
+2000 / 5281
+3000 / 5281
+4000 / 5281
+5000 / 5281
+After augmentation for 9.50 minutes, there are now a total of 10562 pnuemonia files and 11000 atelectasis files
+After building the test directory, there are:
+        300 neither test files
+        300 pneumonia test files
+        300 atelectasis test files
+Finally, there are 96989 neither train files
