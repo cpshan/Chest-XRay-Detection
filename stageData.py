@@ -45,7 +45,7 @@ def makeDirectories():
     except FileExistsError:
         print("neither/ test directory already created")
 
-def stageImages(dirName, imageNum):
+def stageImages(dirName, imageNum, nCount):
     #Goes to 112121, but are saving the last few hundred for testing
     starts = [0, 5001, 15001, 25001, 35001, 45001, 55001, 65001, 75001, 85001, 95001, 105001, 109407]
 
@@ -75,12 +75,13 @@ def stageImages(dirName, imageNum):
                 acount = acount + 1
             except:
                 continue
-        else:
+        elif (("no finding" in disease) and (nCount < 11000)):
             try:
                 shutil.copy(dirName + '/images/' + filename, "nih_staged/neither")
+                nCount += 1
             except:
                 continue
-    return (pcount, acount)
+    return (pcount, acount, nCount)
 
 def addMorePneumonia():
     #Get path from chest-xray-pneumonia dataset
@@ -155,12 +156,13 @@ def main():
     makeDirectories()
     pcount = 0
     acount = 0
+    nCount = 0
     print("About to go through roughly 112,000 lines")
     start = time.time()
     for i in range(1, 13, 1):
         # The nih chest xray dataset was installed and unzipped called archive/
         # If yours is different, change the path name here
-        (pCurr, aCurr) = stageImages("archive/images_0{:02d}".format(i), i)
+        (pCurr, aCurr, nCount) = stageImages("archive/images_0{:02d}".format(i), i, nCount)
         acount += aCurr
         pcount += pCurr
     

@@ -27,4 +27,4 @@ After building the test directory, there are:
         300 neither test files
         300 pneumonia test files
         300 atelectasis test files
-Finally, there are 96989 neither train files
+Finally, there are 11000 neither train files
