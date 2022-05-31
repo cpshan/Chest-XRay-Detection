@@ -4,6 +4,8 @@ from PIL import Image, ImageOps
 from pathlib import Path
 import time
 
+countMax = 8000
+
 def makeDirectories():
     try:
         os.mkdir("nih_staged")
@@ -45,7 +47,7 @@ def makeDirectories():
     except FileExistsError:
         print("neither/ test directory already created")
 
-def stageImages(dirName, imageNum, nCount):
+def stageImages(dirName, imageNum, pcount, acount, nCount):
     #Goes to 112121, but are saving the last few hundred for testing
     starts = [0, 5001, 15001, 25001, 35001, 45001, 55001, 65001, 75001, 85001, 95001, 105001, 109407]
 
@@ -55,27 +57,25 @@ def stageImages(dirName, imageNum, nCount):
     # Traverse CSV file
     print("going through {:d} lines ({:d} - {:d})".format(starts[imageNum] - starts[imageNum - 1],
         starts[imageNum - 1], starts[imageNum]))
-    pcount = 0
-    acount = 0
     for i in range(starts[imageNum-1], starts[imageNum]): #skip first line (column labels)
         line = lines[i].strip().split(",") #delimiter may need to be changed
         filename = line[0]
         disease = line[1].lower().strip()
         # Pick out images of diseaseType from dirName
 
-        if ('pneumonia' in disease) == True:
+        if (('pneumonia' in disease) and (pcount < (countMax / 2))):
             try:
                 shutil.copy(dirName + '/images/' + filename, "nih_staged/pneumonia/")
                 pcount = pcount + 1
             except:
                 continue
-        elif ('atelectasis' in disease):
+        elif (('atelectasis' in disease) and (acount < countMax)):
             try:
                 shutil.copy(dirName + '/images/' + filename, "nih_staged/atelectasis")
                 acount = acount + 1
             except:
                 continue
-        elif (("no finding" in disease) and (nCount < 11000)):
+        elif (("no finding" in disease) and (nCount < countMax)):
             try:
                 shutil.copy(dirName + '/images/' + filename, "nih_staged/neither")
                 nCount += 1
@@ -83,15 +83,23 @@ def stageImages(dirName, imageNum, nCount):
                 continue
     return (pcount, acount, nCount)
 
-def addMorePneumonia():
+def addMorePneumonia(pcount):
     #Get path from chest-xray-pneumonia dataset
     #Directory needs to be installed, unzipped, and named chest-xray-pneumonia
     pathToCpy = "chest-xray-pneumonia/chest_xray/train/PNEUMONIA"
     files = os.listdir(pathToCpy)
+    testCount = 0
     #copy each file to the nih_staged directory
+    #also add some to the test directory
     for pfile in files:
-        filePath = pathToCpy + '/' + pfile
-        shutil.copy(filePath, "nih_staged/pneumonia")
+        if (pcount < (countMax / 2)):
+            filePath = pathToCpy + '/' + pfile
+            shutil.copy(filePath, "nih_staged/pneumonia")
+            pcount = pcount + 1
+        elif (testCount < 281):
+            filePath = pathToCpy + '/' + pfile
+            shutil.copy(filePath, "nih_test/pneumonia")
+            testCount += 1
         
 def augmentData():
     pDir = Path("nih_staged/pneumonia")
@@ -116,6 +124,7 @@ def buildTestDir():
     starts = [109407, 112121]
     noneCount = 0
     atelectasisCount = 0
+    pneumoniaCount = 0
     
     for i in range(starts[0], starts[1]):
         line = lines[i].lower().split(",")
@@ -132,24 +141,19 @@ def buildTestDir():
             except:
                 continue
 
+        elif ("pneumonia" in disease) and (pneumoniaCount < 300):
+            try:
+                shutil.copy(dirName + '/images/' + filename, "nih_test/pneumonia")
+                pneumoniaCount += 1
+            except:
+                continue
+
         elif ("pneumonia" not in disease) and (noneCount < 300):
             try:
                 shutil.copy(dirName + '/images/' + filename, "nih_test/neither")
                 noneCount = noneCount + 1
             except:
                 continue   
-    
-    dirName = "chest-xray-pneumonia/chest_xray/test/PNEUMONIA"
-    count = 0
-    for fileName in os.listdir(dirName):
-        if count == 300:
-            break
-
-        try:
-            shutil.copy(dirName + '/' + fileName, "nih_test/pneumonia")
-            count = count + 1
-        except:
-            continue
 
 
 def main():
@@ -162,9 +166,7 @@ def main():
     for i in range(1, 13, 1):
         # The nih chest xray dataset was installed and unzipped called archive/
         # If yours is different, change the path name here
-        (pCurr, aCurr, nCount) = stageImages("archive/images_0{:02d}".format(i), i, nCount)
-        acount += aCurr
-        pcount += pCurr
+        (pcount, acount, nCount) = stageImages("archive/images_0{:02d}".format(i), i, pcount, acount, nCount)
     
     end = time.time()
     print("After {:.2f} minutes, there are a total of {:d} pneumonia files and {:d} atelectasis files".format(
@@ -172,7 +174,7 @@ def main():
 
     print("Adding more pneumonia files")
     start = time.time()
-    addMorePneumonia()
+    addMorePneumonia(pcount)
     end = time.time()
     print("After {:.2f} minutes, there are now a total of {:d} pnuemonia files and {:d} atelectasis files".format(
         (end - start) / 60, len(os.listdir("nih_staged/pneumonia")), len(os.listdir("nih_staged/atelectasis"))
