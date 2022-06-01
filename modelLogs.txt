@@ -1,0 +1,13 @@
+3 EPOCHS:
+Testing a total of 300 neither files
+A total of 192 out of 300 neither files correct (0.64 accuracy)
+GUESSES: atelectasis: 99, neither: 192, pneumonia: 9
+Testing a total of 300 atelectasis files
+A total of 178 out of 300 atelectasis files correct (0.59 accuracy)
+GUESSES: atelectasis: 178, neither: 110, pneumonia: 12
+Testing a total of 300 pneumonia files
+A total of 282 out of 300 pneumonia files correct (0.94 accuracy)
+GUESSES: atelectasis: 9, neither: 9, pneumonia: 282
+A total score of 652/900 (0.724 accuracy)
+
+10 EPOCHS:

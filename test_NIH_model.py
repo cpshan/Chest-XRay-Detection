@@ -13,6 +13,7 @@ def testSet(name, dir, model, class_names):
     files = os.listdir(dir)
     total = len(files)
     correct = 0
+    guesses = [0,0,0]
 
     image_height = 180
     image_width = 180
@@ -28,8 +29,12 @@ def testSet(name, dir, model, class_names):
         score = tf.nn.softmax(predictions[0])
         if (class_names[np.argmax(score)] == name):
             correct = correct + 1
+        guesses[np.argmax(score)] +=1
     
     print("A total of {:d} out of {:d} {:s} files correct ({:.2f} accuracy)".format(correct, total, name, correct / total))
+    print("GUESSES: {:s}: {:d}, {:s}: {:d}, {:s}: {:d}".format(
+        class_names[0], guesses[0], class_names[1], guesses[1], class_names[2], guesses[2]
+    ))
     return (correct, total)
 
 def main():
