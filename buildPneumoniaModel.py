@@ -65,11 +65,11 @@ model.compile(
     metrics=['accuracy']
     )
 
-epochs = 12
+epochs = 20
 history = model.fit(
     train_ds,
     validation_data=val_ds,
     epochs=epochs
 )
 
-model.save('pneumoniaModel')
+model.save('smallModel')

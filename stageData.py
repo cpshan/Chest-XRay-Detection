@@ -13,9 +13,9 @@ def makeDirectories():
         print("nih_staged directory already created")
 
     try:
-        os.mkdir("nih_staged/pneumonia")
+        os.mkdir("nih_staged/infiltration")
     except FileExistsError:
-        print("pneumonia directory already created")   
+        print("infiltration directory already created")   
     
     try:
         os.mkdir("nih_staged/atelectasis")
@@ -33,9 +33,9 @@ def makeDirectories():
         print("test folder alrealy created")
     
     try:
-        os.mkdir("nih_test/pneumonia")
+        os.mkdir("nih_test/infiltration")
     except FileExistsError:
-        print("pneumonia test directory already created")   
+        print("infiltration test directory already created")   
     
     try:
         os.mkdir("nih_test/atelectasis")
@@ -63,9 +63,9 @@ def stageImages(dirName, imageNum, pcount, acount, nCount):
         disease = line[1].lower().strip()
         # Pick out images of diseaseType from dirName
 
-        if (('pneumonia' in disease) and (pcount < (countMax / 2))):
+        if (('infiltration' in disease) and (pcount < countMax)):
             try:
-                shutil.copy(dirName + '/images/' + filename, "nih_staged/pneumonia/")
+                shutil.copy(dirName + '/images/' + filename, "nih_staged/infiltration/")
                 pcount = pcount + 1
             except:
                 continue
@@ -141,14 +141,14 @@ def buildTestDir():
             except:
                 continue
 
-        elif ("pneumonia" in disease) and (pneumoniaCount < 300):
+        elif ("infiltration" in disease) and (pneumoniaCount < 300):
             try:
-                shutil.copy(dirName + '/images/' + filename, "nih_test/pneumonia")
+                shutil.copy(dirName + '/images/' + filename, "nih_test/infiltration")
                 pneumoniaCount += 1
             except:
                 continue
 
-        elif ("pneumonia" not in disease) and (noneCount < 300):
+        elif ("no finding" in disease) and (noneCount < 300):
             try:
                 shutil.copy(dirName + '/images/' + filename, "nih_test/neither")
                 noneCount = noneCount + 1
@@ -169,29 +169,29 @@ def main():
         (pcount, acount, nCount) = stageImages("archive/images_0{:02d}".format(i), i, pcount, acount, nCount)
     
     end = time.time()
-    print("After {:.2f} minutes, there are a total of {:d} pneumonia files and {:d} atelectasis files".format(
+    print("After {:.2f} minutes, there are a total of {:d} infiltration files and {:d} atelectasis files".format(
         (end - start) / 60, pcount, acount))
 
-    print("Adding more pneumonia files")
-    start = time.time()
-    addMorePneumonia(pcount)
-    end = time.time()
-    print("After {:.2f} minutes, there are now a total of {:d} pnuemonia files and {:d} atelectasis files".format(
-        (end - start) / 60, len(os.listdir("nih_staged/pneumonia")), len(os.listdir("nih_staged/atelectasis"))
-    ))
+    # print("Adding more pneumonia files")
+    # start = time.time()
+    # addMorePneumonia(pcount)
+    # end = time.time()
+    # print("After {:.2f} minutes, there are now a total of {:d} pnuemonia files and {:d} atelectasis files".format(
+    #     (end - start) / 60, len(os.listdir("nih_staged/pneumonia")), len(os.listdir("nih_staged/atelectasis"))
+    # ))
 
-    print("Augmenting data")
-    start = time.time()
-    augmentData()
-    end = time.time()
-    print("After augmentation for {:.2f} minutes, there are now a total of {:d} pnuemonia files and {:d} atelectasis files".format(
-        (end - start) / 60, len(os.listdir("nih_staged/pneumonia")), len(os.listdir("nih_staged/atelectasis"))
-    ))
+    # print("Augmenting data")
+    # start = time.time()
+    # augmentData()
+    # end = time.time()
+    # print("After augmentation for {:.2f} minutes, there are now a total of {:d} pnuemonia files and {:d} atelectasis files".format(
+    #     (end - start) / 60, len(os.listdir("nih_staged/pneumonia")), len(os.listdir("nih_staged/atelectasis"))
+    # ))
 
     buildTestDir()
     print("After building the test directory, there are:")
     print("\t{:d} neither test files".format(len(os.listdir("nih_test/neither"))))
-    print("\t{:d} pneumonia test files".format(len(os.listdir("nih_test/pneumonia"))))
+    print("\t{:d} infiltration test files".format(len(os.listdir("nih_test/infiltration"))))
     print("\t{:d} atelectasis test files".format(len(os.listdir("nih_test/atelectasis"))))
 
     print("Finally, there are {:d} neither train files".format(len(os.listdir("nih_staged/neither"))))

@@ -10,12 +10,16 @@ from pathlib import Path
 import os
 
 import matplotlib.pyplot as plt
+import matplotlib.image as mimg
+from mlxtend.plotting import plot_confusion_matrix
+from sklearn.metrics import confusion_matrix
+import cv2
 
 def testSet(name, dir, model, class_names):
     files = os.listdir(dir)
     total = len(files)
     correct = 0
-    guesses = [0,0,0]
+    guesses = [0,0]
 
     image_height = 180
     image_width = 180
@@ -34,14 +38,14 @@ def testSet(name, dir, model, class_names):
         guesses[np.argmax(score)] +=1
     
     print("A total of {:d} out of {:d} {:s} files correct ({:.2f} accuracy)".format(correct, total, name, correct / total))
-    print("GUESSES: {:s}: {:d}, {:s}: {:d}, {:s}: {:d}".format(
-        class_names[0], guesses[0], class_names[1], guesses[1], class_names[2], guesses[2]
+    print("GUESSES: {:s}: {:d}, {:s}: {:d}".format(
+        class_names[0], guesses[0], class_names[1], guesses[1]
     ))
     return (correct, total, guesses)
 
 def main():
-    train_dir = Path("./nih_staged")
-    test_dir = Path("./nih_test")
+    train_dir = Path('./chest-xray-pneumonia/chest_xray/train/')
+    test_dir = Path("./chest-xray-pneumonia/chest_xray/test/")
 
     batch_size = 32
     image_height = 180
@@ -56,20 +60,19 @@ def main():
         batch_size = batch_size
     )
     class_names = train_ds.class_names
-    model = tf.keras.models.load_model("nihModel")
+    print(class_names)
+    model = tf.keras.models.load_model("smallModel")
 
-    (nC, nT, nGuesses) = testSet("neither", test_dir / "neither", model, class_names)
-    (aC, aT, aGuesses) = testSet("atelectasis", test_dir / "atelectasis", model, class_names)
-    (pC, pT, pGuesses) = testSet("infiltration", test_dir / "infiltration", model, class_names)
+    (nC, nT, nGuesses) = testSet("NORMAL", test_dir / "NORMAL", model, class_names)
+    (pC, pT, pGuesses) = testSet("PNEUMONIA", test_dir / "PNEUMONIA", model, class_names)
 
     print("A total score of {:d}/{:d} ({:.3f} accuracy)".format(
-        nC + aC + pC, nT + aT + pT, (nC + aC + pC) / (nT + aT + pT)
+        nC + pC, nT + pT, (nC + pC) / (nT + pT)
     ))
 
     allGuesses = []
-    allGuesses.append(aGuesses)
-    allGuesses.append(pGuesses)
     allGuesses.append(nGuesses)
+    allGuesses.append(pGuesses)
     allGuesses = np.array(allGuesses)
 
     # cm = confusion_matrix(true, allGuesses)
@@ -80,8 +83,8 @@ def main():
     plt.imshow(allGuesses, interpolation='none', cmap=plt.cm.PuBuGn)
     for (j, i), label in np.ndenumerate(allGuesses):
         plt.text(i, j, label, ha='center', va='center')
-    plt.xticks(range(3), class_names, fontsize=16)
-    plt.yticks(range(3), class_names, fontsize=16)
+    plt.xticks(range(2), class_names, fontsize=16)
+    plt.yticks(range(2), class_names, fontsize=16)
 
     input("Press enter to show plot")
     plt.show()

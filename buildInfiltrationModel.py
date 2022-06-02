@@ -10,8 +10,8 @@ from pathlib import Path
 import os
 
 def main():
-    train_dir = Path('./nih_staged')
-    test_dir = Path('/nih_test')
+    train_dir = Path('./infil_staged')
+    test_dir = Path('/infil_test')
 
     batch_size = 32
     image_height = 180
@@ -71,7 +71,7 @@ def main():
         epochs=epochs
     )
 
-    model.save('nihModel')
+    model.save('infilModel')
 
 
 if __name__ == "__main__":

@@ -2,6 +2,7 @@
 chest-xray-pneumonia.zip
 chest-xray-pneumonia/
 pneumoniaModel/
+smallModel/
 
 archive.zip
 archive/
@@ -10,3 +11,7 @@ nih_staged/
 nih_test/
 
 nihModel/
+
+infil_staged/
+infil_test/
+infilModel/
