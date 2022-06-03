@@ -11,7 +11,9 @@ nih_test/
 
 infil_staged/
 infil_test/
+infilModel/
 
 buildInfiltrationModel.py
 test_infil_model.py
 testPneumoniaModel.py
+stageInfilData.py
