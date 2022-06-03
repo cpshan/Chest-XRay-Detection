@@ -64,7 +64,7 @@ def main():
         metrics=['accuracy']
     )
 
-    epochs = 5
+    epochs = 3
     history = model.fit(
         train_ds,
         validation_data=val_ds,

@@ -65,7 +65,7 @@ model.compile(
     metrics=['accuracy']
     )
 
-epochs = 20
+epochs = 1
 history = model.fit(
     train_ds,
     validation_data=val_ds,

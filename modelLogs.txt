@@ -1,4 +1,15 @@
 XXXXXXXXXXXXXXXXXXXX    SMALL MODEL     XXXXXXXXXXXXXXXXXXXXXXXXXXX
+1 EPOCH:
+Epoch 1/1
+135/135 [==============================] - 96s 528ms/step - loss: 0.3400 - accuracy: 0.8555 - val_loss: 0.0794 - val_accuracy: 0.9692
+Testing a total of 234 NORMAL files
+A total of 119 out of 234 NORMAL files correct (0.51 accuracy)
+GUESSES: NORMAL: 119, PNEUMONIA: 115
+Testing a total of 390 PNEUMONIA files
+A total of 379 out of 390 PNEUMONIA files correct (0.97 accuracy)
+GUESSES: NORMAL: 11, PNEUMONIA: 379
+A total score of 498/624 (0.798 accuracy)
+
 3 EPOCHS:
 Epoch 1/3
 135/135 [==============================] - 153s 923ms/step - loss: 0.2579 - accuracy: 0.8800 - val_loss: 0.1266 - val_accuracy: 0.9468
@@ -64,6 +75,34 @@ GUESSES: NORMAL: 5, PNEUMONIA: 385
 A total score of 475/624 (0.761 accuracy)
 
 XXXXXXXXXXXXXXXXXXXX    INFIL MODEL     XXXXXXXXXXXXXXXXXXXXXXXXXXX
+2 EPOCHS:
+Epoch 1/2
+950/950 [==============================] - 934s 807ms/step - loss: 0.5872 - accuracy: 0.6912 - val_loss: 0.5470 - val_accuracy: 0.7267
+Epoch 2/2
+950/950 [==============================] - 749s 788ms/step - loss: 0.5414 - accuracy: 0.7266 - val_loss: 0.5329 - val_accuracy: 0.7346
+Testing a total of 300 infiltration files
+A total of 289 out of 300 infiltration files correct (0.96 accuracy)
+GUESSES: infiltration: 289, normal: 11
+Testing a total of 300 normal files
+A total of 33 out of 300 normal files correct (0.11 accuracy)
+GUESSES: infiltration: 267, normal: 33
+A total score of 322/600 (0.537 accuracy)
+
+3 EPOCHS:
+Epoch 1/3
+950/950 [==============================] - 875s 764ms/step - loss: 0.5836 - accuracy: 0.6936 - val_loss: 0.5385 - val_accuracy: 0.7286
+Epoch 2/3
+950/950 [==============================] - 635s 668ms/step - loss: 0.5401 - accuracy: 0.7294 - val_loss: 0.5594 - val_accuracy: 0.7171
+Epoch 3/3
+950/950 [==============================] - 754s 794ms/step - loss: 0.5207 - accuracy: 0.7417 - val_loss: 0.5272 - val_accuracy: 0.7311
+Testing a total of 300 infiltration files
+A total of 226 out of 300 infiltration files correct (0.75 accuracy)
+GUESSES: infiltration: 226, normal: 74
+Testing a total of 300 normal files
+A total of 121 out of 300 normal files correct (0.40 accuracy)
+GUESSES: infiltration: 179, normal: 121
+A total score of 347/600 (0.578 accuracy)
+
 5 EPOCHS:
 Epoch 1/5
 950/950 [==============================] - 1071s 908ms/step - loss: 0.5762 - accuracy: 0.7000 - val_loss: 0.5624 - val_accuracy: 0.7126
@@ -83,6 +122,45 @@ A total of 97 out of 300 normal files correct (0.32 accuracy)
 GUESSES: infiltration: 203, normal: 97
 A total score of 331/600 (0.552 accuracy)
 
+15 EPOCHS:
+Epoch 1/15
+950/950 [==============================] - 993s 883ms/step - loss: 0.5792 - accuracy: 0.6939 - val_loss: 0.5639 - val_accuracy: 0.7201    
+Epoch 2/15
+950/950 [==============================] - 815s 858ms/step - loss: 0.5456 - accuracy: 0.7237 - val_loss: 0.5515 - val_accuracy: 0.7161    
+Epoch 3/15
+950/950 [==============================] - 806s 849ms/step - loss: 0.5285 - accuracy: 0.7340 - val_loss: 0.5484 - val_accuracy: 0.7225    
+Epoch 4/15
+950/950 [==============================] - 820s 863ms/step - loss: 0.5106 - accuracy: 0.7465 - val_loss: 0.5337 - val_accuracy: 0.7330    
+Epoch 5/15
+950/950 [==============================] - 907s 955ms/step - loss: 0.4886 - accuracy: 0.7585 - val_loss: 0.5332 - val_accuracy: 0.7372    
+Epoch 6/15
+950/950 [==============================] - 810s 853ms/step - loss: 0.4603 - accuracy: 0.7765 - val_loss: 0.5376 - val_accuracy: 0.7399    
+Epoch 7/15
+950/950 [==============================] - 783s 824ms/step - loss: 0.4266 - accuracy: 0.7936 - val_loss: 0.5690 - val_accuracy: 0.7314
+Epoch 8/15
+950/950 [==============================] - 731s 769ms/step - loss: 0.3796 - accuracy: 0.8213 - val_loss: 0.6654 - val_accuracy: 0.7326
+Epoch 9/15
+950/950 [==============================] - 712s 750ms/step - loss: 0.3270 - accuracy: 0.8529 - val_loss: 0.7286 - val_accuracy: 0.7258
+Epoch 10/15
+950/950 [==============================] - 697s 734ms/step - loss: 0.2748 - accuracy: 0.8799 - val_loss: 0.8355 - val_accuracy: 0.7229
+Epoch 11/15
+950/950 [==============================] - 687s 723ms/step - loss: 0.2233 - accuracy: 0.9058 - val_loss: 0.9529 - val_accuracy: 0.7050
+Epoch 12/15
+950/950 [==============================] - 688s 725ms/step - loss: 0.1743 - accuracy: 0.9272 - val_loss: 1.2763 - val_accuracy: 0.7150
+Epoch 13/15
+950/950 [==============================] - 723s 760ms/step - loss: 0.1372 - accuracy: 0.9451 - val_loss: 1.5642 - val_accuracy: 0.7087
+Epoch 14/15
+950/950 [==============================] - 718s 755ms/step - loss: 0.1133 - accuracy: 0.9551 - val_loss: 1.6994 - val_accuracy: 0.7009
+Epoch 15/15
+950/950 [==============================] - 696s 732ms/step - loss: 0.0900 - accuracy: 0.9656 - val_loss: 1.7907 - val_accuracy: 0.7047
+Testing a total of 300 infiltration files
+A total of 223 out of 300 infiltration files correct (0.74 accuracy)
+GUESSES: infiltration: 223, normal: 77
+Testing a total of 300 normal files
+A total of 119 out of 300 normal files correct (0.40 accuracy)
+GUESSES: infiltration: 181, normal: 119
+A total score of 342/600 (0.570 accuracy)
+
 XXXXXXXXXXXXXXXXXXXX    NIH MODEL       XXXXXXXXXXXXXXXXXXXXXXXXXXX
 3 EPOCHS:
 Testing a total of 300 neither files
@@ -95,6 +173,18 @@ Testing a total of 300 infiltration files
 A total of 130 out of 300 infiltration files correct (0.43 accuracy)
 GUESSES: atelectasis: 65, infiltration: 130, neither: 105
 A total score of 409/900 (0.454 accuracy)
+
+5 EPOCHS:
+Testing a total of 300 neither files
+A total of 135 out of 300 neither files correct (0.45 accuracy)
+GUESSES: atelectasis: 86, infiltration: 79, neither: 135
+Testing a total of 300 atelectasis files
+A total of 144 out of 300 atelectasis files correct (0.48 accuracy)
+GUESSES: atelectasis: 144, infiltration: 100, neither: 56
+Testing a total of 300 infiltration files
+A total of 107 out of 300 infiltration files correct (0.36 accuracy)
+GUESSES: atelectasis: 99, infiltration: 107, neither: 94
+A total score of 386/900 (0.429 accuracy)
 
 10 EPOCHS:
 Epoch 1/10

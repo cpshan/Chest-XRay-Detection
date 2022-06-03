@@ -2,7 +2,6 @@
 chest-xray-pneumonia.zip
 chest-xray-pneumonia/
 pneumoniaModel/
-smallModel/
 
 archive.zip
 archive/
@@ -10,8 +9,9 @@ archive/
 nih_staged/
 nih_test/
 
-nihModel/
-
 infil_staged/
 infil_test/
-infilModel/
+
+buildInfiltrationModel.py
+test_infil_model.py
+testPneumoniaModel.py

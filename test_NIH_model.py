@@ -2,10 +2,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
 
-from tensorflow import keras
-from keras import layers
-from keras.models import Sequential
-
 from pathlib import Path
 import os
 
@@ -40,22 +36,9 @@ def testSet(name, dir, model, class_names):
     return (correct, total, guesses)
 
 def main():
-    train_dir = Path("./nih_staged")
     test_dir = Path("./nih_test")
 
-    batch_size = 32
-    image_height = 180
-    image_width = 180
-
-    train_ds = tf.keras.utils.image_dataset_from_directory(
-        train_dir,
-        validation_split = 0.2,
-        subset = "training",
-        seed = 123,
-        image_size = (image_height, image_width),
-        batch_size = batch_size
-    )
-    class_names = train_ds.class_names
+    class_names = ['atelectasis', 'infiltration', 'neither']
     model = tf.keras.models.load_model("nihModel")
 
     (nC, nT, nGuesses) = testSet("neither", test_dir / "neither", model, class_names)

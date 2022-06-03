@@ -13,6 +13,7 @@ import sys
 def testPath(model, class_names):
     image_height = 180
     image_width = 180
+    print()
     print("Enter path to file you want to test (ex: pneumonia/person47_backteria_229.jpeg)")
     testPath = input("Or type exit to leave: ")
 
@@ -40,7 +41,7 @@ def processArgs(argv):
 
     if (len(argv) != 2):
         print("Usage: python handsOnTest.py <model_to_test>")
-        print("Model options are pneumonia, infiltration, and mix")
+        print("Model options are pneumonia and mix")
         exit()
     
     elif (argv[1] == "pneumonia"):
